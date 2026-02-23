@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ForesterJMaps | GIS Portfolio</title>
+
+  <!-- Responsive design for mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS (for interactive map) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+  <style>
+    body { margin:0; font-family:Arial, sans-serif; }
+
+    header {
+      background:#0f3d2e;
+      color:white;
+      padding:20px;
+      text-align:center;
+    }
+
+    nav {
+      background:#145c43;
+      padding:10px;
+      text-align:center;
+    }
+
+    nav a {
+      color:white;
+      margin:0 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    section { padding:40px; }
+
+    .portfolio img {
+      width:300px;
+      margin:10px;
+      border-radius:10px;
+    }
+
+    #map { height:500px; }
+
+    form {
+      max-width:500px;
+      margin:auto;
+      display:flex;
+      flex-direction:column;
+    }
+
+    input, textarea {
+      margin:10px 0;
+      padding:10px;
+      border-radius:5px;
+      border:1px solid #ccc;
+    }
+
+    button {
+      padding:10px;
+      background:#0f3d2e;
+      color:white;
+      border:none;
+      border-radius:5px;
+      cursor:pointer;
+    }
+
+    footer {
+      background:#0f3d2e;
+      color:white;
+      text-align:center;
+      padding:20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <h1>ForesterJMaps</h1>
+  <p>Professional GIS Mapping | Forestry | Remote Sensing</p>
+</header>
+
+<!-- ================= NAVIGATION ================= -->
+<nav>
+  <a href="#about">About</a>
+  <a href="#map">Map</a>
+  <a href="#portfolio">Portfolio</a>
+  <a href="#booking">Booking</a>
+</nav>
+
+<!-- ================= ABOUT SECTION ================= -->
+<section id="about">
+  <h2>About Me</h2>
+  <p>
+    I am a GIS Specialist based in Musuan, Maramag, Bukidnon. I create high-quality maps for research,
+    thesis, and environmental analysis including watershed delineation, NDVI analysis, and hazard mapping.
+  </p>
+</section>
+
+<!-- ================= INTERACTIVE MAP ================= -->
+<section>
+  <h2>Interactive GIS Map</h2>
+  <div id="map"></div>
+</section>
+
+<!-- ================= PORTFOLIO ================= -->
+<section id="portfolio">
+  <h2>My Works</h2>
+  <div class="portfolio">
+    <!-- Replace images with your actual work -->
+    <img src="map1.jpg" alt="Map Project 1">
+    <img src="map2.jpg" alt="Map Project 2">
+    <img src="map3.jpg" alt="Map Project 3">
+  </div>
+</section>
+
+<!-- ================= BOOKING SYSTEM ================= -->
+<section id="booking">
+  <h2>Book a GIS Service</h2>
+
+  <!-- Simple booking form -->
+  <form onsubmit="submitBooking(event)">
+    <input type="text" placeholder="Your Name" required>
+    <input type="email" placeholder="Email Address" required>
+
+    <!-- Service selection -->
+    <select required>
+      <option value="">Select Service</option>
+      <option>Thesis Mapping</option>
+      <option>Watershed Analysis</option>
+      <option>Land Use Mapping</option>
+    </select>
+
+    <!-- Preferred date -->
+    <input type="date" required>
+
+    <!-- Message -->
+    <textarea placeholder="Project details"></textarea>
+
+    <button type="submit">Submit Booking</button>
+  </form>
+
+  <p id="bookingStatus"></p>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <p>© 2026 ForesterJMaps | GIS Portfolio</p>
+</footer>
+
+<!-- ================= LEAFLET JS ================= -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+
+// ================= MAP SETUP =================
+
+// Set map view to Musuan, Maramag, Bukidnon
+var map = L.map('map').setView([7.86, 125.05], 13);
+
+// Add OpenStreetMap basemap
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap contributors'
+}).addTo(map);
+
+// ================= REAL GIS LAYERS =================
+
+// Example GeoJSON layer (replace with your own GIS data)
+var sampleLayer = {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {"name": "Sample Area"},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [125.05, 7.86]
+      }
+    }
+  ]
+};
+
+// Add GeoJSON layer to map
+L.geoJSON(sampleLayer).addTo(map)
+  .bindPopup("Sample GIS Layer");
+
+// ================= BOOKING FUNCTION =================
+
+function submitBooking(event) {
+  event.preventDefault();
+
+  // Show confirmation message
+  document.getElementById("bookingStatus").innerText =
+    "Booking submitted successfully! I will contact you soon.";
+}
+
+</script>
+
+</body>
+</html>
